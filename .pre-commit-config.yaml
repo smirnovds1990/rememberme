@@ -22,4 +22,4 @@ repos:
     rev: 7.1.1
     hooks:
       - id: flake8
-        # args: ["--ignore=E501", "page_service/settings.py"]
+        args: ["--ignore=E501", "django_src/rememberme/settings.py"]

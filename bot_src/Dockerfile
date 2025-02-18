@@ -1,5 +1,5 @@
 FROM python:3.12-slim-bookworm
-WORKDIR /django_src
+WORKDIR /bot_src
 
 COPY pyproject.toml uv.lock ./
 RUN apt-get update && \
@@ -9,7 +9,7 @@ RUN sh /uv-installer.sh && rm /uv-installer.sh
 ENV PATH="/root/.local/bin/:$PATH"
 RUN uv sync --frozen
 
-COPY django_src/ .
+COPY bot_src/ .
 
-RUN chmod +x ./django_entrypoint.sh
-ENTRYPOINT ["./django_entrypoint.sh"]
+RUN chmod +x ./bot_entrypoint.sh
+ENTRYPOINT [ "./bot_entrypoint.sh" ]

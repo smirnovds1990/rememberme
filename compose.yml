@@ -21,5 +21,13 @@ services:
       - "8000:8000"
     depends_on:
       - backend_db
+  bot:
+    build:
+      context: .
+      dockerfile: bot_src/Dockerfile
+    env_file:
+      - .env
+    depends_on:
+      - backend
 volumes:
   pg_data:

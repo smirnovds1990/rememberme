@@ -1,3 +1,3 @@
 #!/bin/sh
 uv run manage.py migrate --noinput
-uv run manage.py runserver ${HOST}:${PORT}
+uv run gunicorn rememberme.wsgi:application --bind ${HOST}:${PORT}

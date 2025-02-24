@@ -23,3 +23,7 @@ dev = [
     "pre-commit>=4.1.0",
     "pytest>=8.3.4",
 ]
+
+[tool.isort]
+profile = "black"
+known_first_party = ["constants", "keyboards", "handlers"]

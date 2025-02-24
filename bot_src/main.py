@@ -1,6 +1,7 @@
 import asyncio
 
 from aiogram import Bot, Dispatcher
+
 from constants import BOT_TOKEN
 from handlers import main_router
 

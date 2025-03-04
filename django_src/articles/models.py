@@ -26,6 +26,9 @@ class Article(models.Model):
     tags = models.ManyToManyField("Tag", related_name="articles", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self) -> str:
+        return self.title
+
 
 class Topic(models.Model):
     """Describes what is an article about. One Article can have only one topic."""
@@ -34,6 +37,9 @@ class Topic(models.Model):
         max_length=MAX_TOPIC_NAME_LENGTH, unique=True, blank=False, null=False
     )
 
+    def __str__(self) -> str:
+        return self.name
+
 
 class Tag(models.Model):
     """Provides tags to tag an article for more clearness."""
@@ -41,3 +47,6 @@ class Tag(models.Model):
     name = models.CharField(
         max_length=MAX_TAG_NAME_LENGTH, unique=True, blank=False, null=False
     )
+
+    def __str__(self) -> str:
+        return self.name

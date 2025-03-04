@@ -1,4 +1,3 @@
-from api.serializers import UserSerializer
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import (
     CreateModelMixin,
@@ -6,7 +5,8 @@ from rest_framework.mixins import (
     UpdateModelMixin,
 )
 
-from django_src.users.models import User
+from api.serializers import UserSerializer
+from users.models import User
 
 
 class ScheduleCreateView(

@@ -1,6 +1,6 @@
 from django.urls import path
 
-from django_src.api.views import ScheduleCreateView, ScheduleUpdateDestroyView
+from api.views import ScheduleCreateView, ScheduleUpdateDestroyView
 
 
 urlpatterns = [

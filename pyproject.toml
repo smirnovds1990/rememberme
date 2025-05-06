@@ -28,6 +28,7 @@ dev = [
 profile = "black"
 known_first_party = [
     "api",
+    "articles",
     "constants",
     "handlers",
     "keyboards",

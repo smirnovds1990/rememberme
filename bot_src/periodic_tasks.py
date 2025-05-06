@@ -2,12 +2,14 @@ from zoneinfo import ZoneInfo
 
 from aiogram import Bot
 from apscheduler.triggers.cron import CronTrigger
+from utils import get_random_article
 
-from constants import MOSCOW_TZ, MY_OWN_SCHEDULE
+from constants import MOSCOW_TZ
 
 
 cron_trigger = CronTrigger(
-    hour=MY_OWN_SCHEDULE,
+    hour="14",
+    minute="54, 55, 56, 57, 58, 59",
     timezone=ZoneInfo(MOSCOW_TZ),
 )
 
@@ -16,4 +18,5 @@ async def send_random_article(bot: Bot, chat_id: int) -> None:
     """Send a random article to a subscribed user according to
     his chosen schedule.
     """
-    # get a random article
+    article = await get_random_article()
+    await bot.send_message(chat_id=chat_id, text=article, parse_mode="HTML")

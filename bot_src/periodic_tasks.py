@@ -8,8 +8,7 @@ from constants import MOSCOW_TZ
 
 
 cron_trigger = CronTrigger(
-    hour="14",
-    minute="54, 55, 56, 57, 58, 59",
+    hour="9, 12, 15, 18, 21",
     timezone=ZoneInfo(MOSCOW_TZ),
 )
 

@@ -5,10 +5,9 @@ from aiogram.types import CallbackQuery, Message, ReplyKeyboardRemove
 from states import RegistrationForm
 
 from constants import START_MESSAGE
-from keyboards import (
+from keyboards import (  # main_keyboard,
     cancel_keyboard,
     hour_keyboard,
-    main_keyboard,
     topic_keyboard,
 )
 
@@ -19,7 +18,7 @@ main_router = Router()
 @main_router.message(CommandStart())
 async def start(message: Message) -> None:
     """Handle /start command."""
-    await message.answer(START_MESSAGE, reply_markup=main_keyboard())
+    await message.answer(START_MESSAGE)
 
 
 @main_router.message(F.text == "Cancel")

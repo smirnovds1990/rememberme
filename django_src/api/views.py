@@ -1,3 +1,4 @@
+
 import random
 
 from rest_framework.generics import GenericAPIView
@@ -6,12 +7,14 @@ from rest_framework.mixins import (
     DestroyModelMixin,
     UpdateModelMixin,
 )
+
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.serializers import ArticleSerializer, UserSerializer
 from articles.exceptions import NoArticlesException
 from articles.models import Article
+
 from users.models import User
 
 

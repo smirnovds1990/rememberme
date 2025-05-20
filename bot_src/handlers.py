@@ -1,5 +1,6 @@
 from aiogram import F, Router
 from aiogram.filters import CommandStart
+
 from aiogram.fsm.context import FSMContext
 from aiogram.types import CallbackQuery, Message, ReplyKeyboardRemove
 from states import RegistrationForm
@@ -18,6 +19,7 @@ main_router = Router()
 @main_router.message(CommandStart())
 async def start(message: Message) -> None:
     """Handle /start command."""
+
     await message.answer(START_MESSAGE)
 
 

@@ -19,20 +19,8 @@ services:
       - .env
     expose:
       - "8000"
-    volumes:
-      - static:/backend/static
     depends_on:
       - backend_db
-  nginx:
-    build:
-      context: .
-      dockerfile: nginx/Dockerfile
-    ports:
-      - "80:80"
-    volumes:
-      - static:/backend/static
-    depends_on:
-      - backend
   bot:
     build:
       context: .
@@ -43,4 +31,3 @@ services:
       - backend
 volumes:
   pg_data:
-  static:

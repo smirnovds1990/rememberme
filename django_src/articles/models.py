@@ -25,6 +25,7 @@ class Article(models.Model):
     )
     tags = models.ManyToManyField("Tag", related_name="articles", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    is_deleted = models.BooleanField(default=False)
 
     def __str__(self) -> str:
         return self.title
@@ -50,3 +51,19 @@ class Tag(models.Model):
 
     def __str__(self) -> str:
         return self.name
+
+
+class ArticlesStats(models.Model):
+    """A model to count a number of appearing of every article."""
+
+    article = models.OneToOneField(
+        "Article",
+        on_delete=models.PROTECT,
+        related_name="stats",
+        null=False,
+    )
+    showing_counter = models.PositiveIntegerField(default=0)
+    last_showing = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self) -> str:
+        return f"{self.article.title} is shown {self.showing_counter} times."

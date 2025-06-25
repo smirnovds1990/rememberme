@@ -7,7 +7,6 @@ from api.views import (
 )
 
 
-
 urlpatterns = [
     path("schedule/", ScheduleCreateView.as_view(), name="schedule-create"),
     path(

@@ -31,7 +31,7 @@ class Article(models.Model):
 
 
 class Topic(models.Model):
-    """Describes what is an article about. One Article can have only one topic."""
+    """Describes what is article about. One Article can have only one topic."""
 
     name = models.CharField(
         max_length=MAX_TOPIC_NAME_LENGTH, unique=True, blank=False, null=False

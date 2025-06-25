@@ -1,4 +1,3 @@
-
 import random
 
 from rest_framework.generics import GenericAPIView
@@ -7,14 +6,12 @@ from rest_framework.mixins import (
     DestroyModelMixin,
     UpdateModelMixin,
 )
-
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.serializers import ArticleSerializer, UserSerializer
 from articles.exceptions import NoArticlesException
-from articles.models import Article
-
+from articles.models import Article, ArticlesStats
 from users.models import User
 
 
@@ -59,6 +56,11 @@ class RandomArticleRetrieveView(APIView):
         if articles_amount == 0:
             raise NoArticlesException("Sorry. There are no articles yet.")
         random_index = random.randint(0, articles_amount - 1)
-        random_article = Article.objects.all()[random_index]
+        random_article = Article.objects.filter(is_deleted=False)[random_index]
+        stats, created = ArticlesStats.objects.get_or_create(
+            article=random_article
+        )
+        stats.showing_counter += 1
+        stats.save()
         serializer = ArticleSerializer(random_article)
         return Response(serializer.data)

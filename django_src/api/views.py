@@ -1,5 +1,3 @@
-import random
-
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import (
     CreateModelMixin,
@@ -10,8 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.serializers import ArticleSerializer, UserSerializer
-from articles.exceptions import NoArticlesException
-from articles.models import Article, ArticlesStats
+from articles.services import ArticleService
 from users.models import User
 
 
@@ -28,7 +25,7 @@ class ScheduleCreateView(
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, *args, **kwargs) -> Response:
         return super().create(request, *args, **kwargs)
 
 
@@ -41,26 +38,18 @@ class ScheduleUpdateDestroyView(
     serializer_class = UserSerializer
     lookup_field = "username"
 
-    def patch(self, request, *args, **kwargs):
+    def patch(self, request, *args, **kwargs) -> Response:
         return super().partial_update(request, *args, **kwargs)
 
-    def delete(self, request, *args, **kwargs):
+    def delete(self, request, *args, **kwargs) -> Response:
         return super().destroy(request, *args, **kwargs)
 
 
 class RandomArticleRetrieveView(APIView):
     """Get a random article to send it via bot."""
 
-    def get(self, request):
-        articles_amount = Article.objects.count()
-        if articles_amount == 0:
-            raise NoArticlesException("Sorry. There are no articles yet.")
-        random_index = random.randint(0, articles_amount - 1)
-        random_article = Article.objects.filter(is_deleted=False)[random_index]
-        stats, created = ArticlesStats.objects.get_or_create(
-            article=random_article
+    def get(self, request) -> Response:
+        serializer = ArticleSerializer(
+            ArticleService().get_random_article_and_refresh_stats()
         )
-        stats.showing_counter += 1
-        stats.save()
-        serializer = ArticleSerializer(random_article)
         return Response(serializer.data)

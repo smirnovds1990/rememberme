@@ -9,7 +9,7 @@ class ArticleRepository:
 
     def count_articles(self) -> int:
         """Check if there are any articles in DB."""
-        articles_amount = Article.objects.count()
+        articles_amount = Article.objects.filter(is_deleted=False).count()
         if articles_amount == 0:
             raise NoArticlesException("Sorry. There are no articles yet.")
         return articles_amount

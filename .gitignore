@@ -182,3 +182,4 @@ cython_debug/
 *.vsix
 
 static/
+.DS_Store

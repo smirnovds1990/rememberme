@@ -1,3 +1,4 @@
+from rest_framework import status
 from rest_framework.generics import GenericAPIView
 from rest_framework.mixins import (
     CreateModelMixin,
@@ -8,6 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from api.serializers import ArticleSerializer, UserSerializer
+from articles.exceptions import NoArticlesException
 from articles.services import ArticleService
 from users.models import User
 
@@ -30,7 +32,9 @@ class ScheduleCreateView(
 
 
 class ScheduleUpdateDestroyView(
-    DestroyModelMixin, UpdateModelMixin, GenericAPIView
+    DestroyModelMixin,
+    UpdateModelMixin,
+    GenericAPIView,
 ):
     """Update or delete a user messaging schedule."""
 
@@ -49,7 +53,12 @@ class RandomArticleRetrieveView(APIView):
     """Get a random article to send it via bot."""
 
     def get(self, request) -> Response:
-        serializer = ArticleSerializer(
-            ArticleService().get_random_article_and_refresh_stats()
-        )
-        return Response(serializer.data)
+        try:
+            serializer = ArticleSerializer(
+                ArticleService().get_random_article_and_refresh_stats()
+            )
+            return Response(serializer.data)
+        except NoArticlesException as e:
+            return Response(
+                {"detail": str(e)}, status=status.HTTP_404_NOT_FOUND
+            )

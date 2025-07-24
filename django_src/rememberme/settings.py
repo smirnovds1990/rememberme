@@ -102,3 +102,21 @@ CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS")
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "main": {"format": env("LOG_FORMAT")},
+    },
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+            "formatter": "main",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": env("LOG_LEVEL"),
+    },
+}

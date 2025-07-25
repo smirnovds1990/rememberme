@@ -38,6 +38,7 @@ known_first_party = [
     "exceptions",
     "handlers",
     "keyboards",
+    "logging_config",
     "periodic_tasks",
     "users",
 ]

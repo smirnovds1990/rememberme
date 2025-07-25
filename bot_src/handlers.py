@@ -17,8 +17,6 @@ main_router = Router()
 
 @main_router.message(CommandStart())
 async def start(message: Message) -> None:
-    """Handle /start command."""
-
     await message.answer(START_MESSAGE)
 
 

@@ -5,6 +5,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
 from constants import BOT_TOKEN, MY_TELEGRAM_CHAT_ID
 from handlers import main_router
+from logging_config import configure_logger
 from periodic_tasks import cron_trigger, send_random_article
 
 
@@ -14,6 +15,7 @@ scheduler = AsyncIOScheduler()
 
 
 async def main() -> None:
+    configure_logger()
     dp.include_router(main_router)
     scheduler.add_job(
         func=send_random_article,
